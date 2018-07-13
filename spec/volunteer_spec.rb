@@ -1,4 +1,6 @@
-require "spec_helper"
+require('rspec')
+require('pg')
+require('volunteer')
 
 describe Volunteer do
   describe '#name' do

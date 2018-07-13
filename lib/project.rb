@@ -1,4 +1,5 @@
 require("pry")
+
 class Project
 
 attr_writer(:project_title)
@@ -8,7 +9,7 @@ attr_writer(:project_title)
   end
 
   def self.all
-    returned_projects = DB.exec("SELECT * FROM project;")
+    returned_projects = DB.exec("SELECT * FROM projects;")
     projects = []
     returned_projects.each() do |project|
       project_title = project.fetch("title")

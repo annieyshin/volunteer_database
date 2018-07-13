@@ -1,4 +1,6 @@
-require "spec_helper"
+require ('spec_helper')
+require('pg')
+require('project')
 
 describe Project do
   describe '#title' do
