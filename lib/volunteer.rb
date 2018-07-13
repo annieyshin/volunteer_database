@@ -18,7 +18,6 @@ attr_reader(:name, :id, :project_id)
       project_id = volunteer.fetch("project_id")
       id = volunteer.fetch("id").to_i()
       volunteers.push({:name => name, :id => id, :project_id => project_id})
-      end
     end
     volunteers
   end
