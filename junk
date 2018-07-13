@@ -1,0 +1,122 @@
+
+from app.rb
+
+get ('/') do
+  @all = Sortanice.new()
+  erb(:input)
+end
+
+
+#IN YOUR APP.rb template Cities was used for Volunteer!
+
+@volunteer_list = Volunteer.all()
+WAS
+get ('/cities') do
+  @city_names = City.all()
+  erb(:cities)
+end
+
+
+post ('/volunteer') do
+  @city_name = params["volunteer_name"]
+  new_city_name = City.new({:city_name => @city_name})
+  new_city_name.save()
+  redirect to('/cities')
+end
+WAS
+post ('/cities') do
+  @city_name = params["city_name"]
+  new_city_name = City.new({:city_name => @city_name})
+  new_city_name.save()
+  redirect to('/cities')
+end
+
+
+FOR PROJECT.rb you used the template for train_time
+require("pry")
+class Train
+
+attr_writer(:train_name)
+
+  def initialize(attributes)
+    @train_name = attributes.fetch(:train_name)
+  end
+
+  def self.all
+    returned_trains = DB.exec("SELECT * FROM train;")
+    trains = []
+    returned_trains.each() do |train|
+      name = train.fetch("name")
+      train_id = train.fetch("id").to_i() # The information comes out of the database as a string.
+      unless name == nil
+        trains.push({:train_name => name, :train_id => train_id})
+        # trains.push(Train.new({:train_name => name}))
+      end
+    end
+    trains
+  end
+
+  def save
+    DB.exec("INSERT INTO train (name) VALUES ('#{@train_name}');")
+  end
+
+  # def self.sort
+  #   returned_sorted_lists = DB.exec("SELECT * FROM tasks ORDER BY due_date;")
+  #   @lists = []
+  #   returned_sorted_lists.each() do |list|
+  #     description = list.fetch("description")
+  #     list_id = list.fetch("list_id").to_i()
+  #     due_date = list.fetch("due_date")
+  #     @lists.push(Task.new({:description => description, :list_id => list_id, :due_date => due_date}))
+  #   end
+  #   @lists
+  # end
+
+end
+
+
+
+APP.RB REMOVED TEXT
+
+get ('/times') do
+  @volunteer_list = Volunteer.all()
+  @city_names = City.all()
+  erb(:times)
+end
+
+post ('/times') do
+  @train_time = params["train_time"]
+  @id_city = params["city_drop"]
+  @id_train = params["train_drop"]
+  eta = Traintime.new({:time => @train_time, :id_city => @id_city, :id_train => @id_train})
+  eta.save()
+  redirect to('/times')
+end
+
+get ('/trains') do
+  @train_names = Train.all()
+  erb(:trains)
+end
+
+post ('/trains') do
+  @train_name = params["train_name"]
+  new_name = Train.new({:train_name => @train_name})
+  new_name.save()
+  redirect to('/trains')
+end
+
+
+LIST INFORMATION
+
+<%if @train_names != nil%>
+  <h3>Here are your train names</h3>
+
+  <ul>
+    <%@train_names.each do |train|%>
+    <li> <%= train[:train_name] %> </li>
+    <% end %>
+  </ul>
+
+<% else %>
+    <p>There are no trains here!</p>
+<% end %>
