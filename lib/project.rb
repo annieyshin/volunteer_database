@@ -1,28 +1,41 @@
 require("pry")
 class Project
 
-attr_writer(:project_name)
+attr_writer(:project_title)
 
   def initialize(attributes)
-    @project_name = attributes.fetch(:project_name)
+    @project_title = attributes.fetch(:project_title)
   end
 
   def self.all
     returned_projects = DB.exec("SELECT * FROM project;")
     projects = []
     returned_projects.each() do |project|
-      project_name = project.fetch("name")
+      project_title = project.fetch("title")
       project_id = project.fetch("id").to_i()
       unless name == nil
-        projects.push({:project_name => name, :project_id => train_id})
+        projects.push({:project_title => project_title, :id => project_id})
       end
     end
     projects
   end
 
   def save
-    DB.exec("INSERT INTO project (name) VALUES ('#{@project_name}');")
+    DB.exec("INSERT INTO project (name) VALUES ('#{@project_title}');")
   end
+
+  def title
+    DB.exec("SELECT * FROM projects WHERE title = ('#{@project_title}') ")
+
+  end
+
+  # def update
+  #   DB.exec("UPDATE project SET name = ('#{@project_name}') WHERE id = ('#{@project_id}');")
+  # end
+  #
+  # def delete
+  #   DB.exec("DELETE FROM project WHERE name = ('#{@project_name}');")
+  # end
 
   # def self.sort
   #   returned_sorted_lists = DB.exec("SELECT * FROM tasks ORDER BY due_date;")
