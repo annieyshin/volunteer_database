@@ -1,6 +1,7 @@
 require('spec_helper')
 require('pg')
 require('project')
+require('rspec')
 
 describe Project do
   describe '#title' do

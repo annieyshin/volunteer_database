@@ -22,7 +22,7 @@ attr_writer(:name)
   end
 
   def save
-    DB.exec("INSERT INTO volunteer (name) VALUES ('#{@volunteer_name}');")
+    DB.exec("INSERT INTO volunteers (name) VALUES ('#{@volunteer_name}');")
   end
 
 end

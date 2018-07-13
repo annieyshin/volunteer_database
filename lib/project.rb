@@ -22,7 +22,7 @@ attr_writer(:project_title)
   end
 
   def save
-    DB.exec("INSERT INTO project (name) VALUES ('#{@project_title}');")
+    DB.exec("INSERT INTO projects (name) VALUES ('#{@project_title}');")
   end
 
   def title
