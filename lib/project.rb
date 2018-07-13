@@ -6,6 +6,7 @@ attr_writer(:project_title)
 
   def initialize(attributes)
     @project_title = attributes.fetch(:project_title)
+    @project_id = attributes.fetch(:project_id)
   end
 
   def self.all
@@ -22,7 +23,7 @@ attr_writer(:project_title)
   end
 
   def save
-    DB.exec("INSERT INTO projects (name) VALUES ('#{@project_title}');")
+    DB.exec("INSERT INTO projects (title, id) VALUES ('#{@project_title}', #{@project_id});")
   end
 
   def title

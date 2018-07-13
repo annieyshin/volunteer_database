@@ -25,4 +25,8 @@ attr_writer(:name)
     DB.exec("INSERT INTO volunteers (name) VALUES ('#{@volunteer_name}');")
   end
 
+  def ==(another_list)
+    self.volunteer_name().==(another_list.volunteer_name()).&(self.volunteer_id().==(another_list.volunteer_id()))
+  end
+
 end
