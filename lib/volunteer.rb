@@ -2,10 +2,12 @@ require('pry')
 
 class Volunteer
 
-attr_writer(:name)
+attr_reader(:name, :id, :project_id)
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
+    @id = attributes.fetch(:id)
+    @project_id = attributes.fetch(:project_id)
   end
 
   def self.all
@@ -13,9 +15,9 @@ attr_writer(:name)
     volunteers = []
     returned_volunteers.each() do |volunteer|
       name = volunteer.fetch("name")
-      volunteer_id = volunteer.fetch("volunteer_id").to_i()
-      unless volunteer == nil
-        volunteers.push({:name => volunteer_name, :id => volunteer_id})
+      project_id = volunteer.fetch("project_id")
+      id = volunteer.fetch("id").to_i()
+      volunteers.push({:name => name, :id => id, :project_id => project_id})
       end
     end
     volunteers
@@ -26,7 +28,7 @@ attr_writer(:name)
   end
 
   def ==(another_list)
-    self.volunteer_name().==(another_list.volunteer_name()).&(self.volunteer_id().==(another_list.volunteer_id()))
+    self.name().==(another_list.name()).&(self.id().==(another_list.id())).&(self.project_id().==(another_list.project_id()))
   end
 
 end
