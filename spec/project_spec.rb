@@ -1,7 +1,7 @@
-require('spec_helper')
-require('pg')
-require('project')
-require('rspec')
+require("spec_helper")
+require("pg")
+require("project")
+require("rspec")
 
 describe Project do
   # describe '#title' do
@@ -46,13 +46,13 @@ describe Project do
   #   end
   # end
 
-  describe '#save' do
-    it 'saves a project to the database' do
-      project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
-      project.save
-      expect(Project.all).to eq [project]
-    end
-  end
+  # describe '#save' do
+  #   it 'saves a project to the database' do
+  #     project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
+  #     project.save
+  #     expect(Project.all).to eq [project]
+  #   end
+  # end
 
   # describe '.find' do
   #   it 'returns a project by id' do

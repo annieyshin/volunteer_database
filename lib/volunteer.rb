@@ -1,4 +1,4 @@
-require('pry')
+require("pry")
 
 class Volunteer
 
@@ -9,6 +9,12 @@ attr_reader(:name, :id, :project_id)
     @id = attributes.fetch(:id)
     @project_id = attributes.fetch(:project_id)
   end
+
+  # def actors
+  #   volunteer_name_return = []
+  #   results = DB.exec("SELECT name FROM volunteers WHERE project_id = #{self.id()};")
+  #
+  # end
 
   def self.all
     returned_volunteers = DB.exec("SELECT * FROM volunteers;")
@@ -25,6 +31,8 @@ attr_reader(:name, :id, :project_id)
   def save
     DB.exec("INSERT INTO volunteers (name) VALUES ('#{@volunteer_name}');")
   end
+
+
 
   def ==(another_list)
     self.name().==(another_list.name()).&(self.id().==(another_list.id())).&(self.project_id().==(another_list.project_id()))
