@@ -127,3 +127,9 @@ def save
  result = DB.exec("INSERT INTO movies (name) VALUES ('#{@name}') RETURNING id;")
  @id = result.first().fetch("id").to_i()
 end
+
+TRY DRY CODE FOR VOLUNTEER INSTEAD
+
+def ==(another_list)
+  self.name().==(another_list.name()).&(self.id().==(another_list.id())).&(self.project_id().==(another_list.project_id()))
+end

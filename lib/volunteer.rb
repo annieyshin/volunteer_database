@@ -10,6 +10,16 @@ attr_reader(:name, :id, :project_id)
     @project_id = attributes.fetch(:project_id)
   end
 
+  def name
+    @name
+  end
+
+  def project_id
+    @project_id
+  end
+
+
+
   # def actors
   #   volunteer_name_return = []
   #   results = DB.exec("SELECT name FROM volunteers WHERE project_id = #{self.id()};")
@@ -21,7 +31,7 @@ attr_reader(:name, :id, :project_id)
     volunteers = []
     returned_volunteers.each() do |volunteer|
       name = volunteer.fetch("name")
-      project_id = volunteer.fetch("project_id")
+      project_id = volunteer.fetch("project_id").to_i()
       id = volunteer.fetch("id").to_i()
       volunteers.push({:name => name, :id => id, :project_id => project_id})
     end
@@ -29,13 +39,22 @@ attr_reader(:name, :id, :project_id)
   end
 
   def save
-    DB.exec("INSERT INTO volunteers (name) VALUES ('#{@volunteer_name}');")
+    result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', #{@project_id}) RETURNING id;")
+    @id = result.first().fetch("id").to_i()
   end
 
+  def ==(new_volunteer)
+    self.name.==(new_volunteer.name)
+  end
 
-
-  def ==(another_list)
-    self.name().==(another_list.name()).&(self.id().==(another_list.id())).&(self.project_id().==(another_list.project_id()))
+  def self.find(id)
+    return_list = nil
+    Volunteer.all().each() do |volunteer|
+      if volunteer.id().==(id)
+        return_list = volunteer
+      end
+    end
+    return_list
   end
 
 end
